@@ -11,14 +11,10 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/chat', function () {
+Route::get('/chat', function () {
     return response()->eventStream(function () {
-        if (!request()->has('message')) {
-            return;
-        };
-
         for ($i = 0; $i < 100; $i++) {
-            yield "message {$i}<br>\n";
+            yield "message {$i}<br>";
             sleep(2);
         }
     });
