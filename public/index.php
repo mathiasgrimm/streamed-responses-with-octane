@@ -3,6 +3,10 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
+ini_set('output_buffering', 'Off');
+ini_set('zlib.output_compression', 'Off');
+ini_set('implicit_flush', 'On');
+
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...
