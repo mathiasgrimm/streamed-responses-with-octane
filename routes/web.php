@@ -12,14 +12,16 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/chat', function () {
-    return response()->stream(function (): void {
+    return response()->eventStream(function () {
+        if (!request()->has('message')) {
+            return;
+        };
+
         for ($i = 0; $i < 100; $i++) {
-            echo "message {$i}<br>\n";
-            ob_flush();
-            flush();
-            sleep(2); // Simulate delay between chunks...
+            yield "message {$i}<br>\n";
+            sleep(2);
         }
-    }, 200, ['X-Accel-Buffering' => 'no']);
+    });
 });
 
 require __DIR__.'/settings.php';
