@@ -11,10 +11,10 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/stream', function () {
+Route::post('/chat', function () {
     return response()->stream(function (): void {
-        foreach (['developer', 'admin'] as $string) {
-            echo $string;
+        for ($i = 0; $i < 100; $i++) {
+            echo "message {$i}<br>\n";
             ob_flush();
             flush();
             sleep(2); // Simulate delay between chunks...
